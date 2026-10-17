@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClausePilot | Contract Assistant</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand-mark">C</div>
+  <div><div class="brand">ClausePilot</div><div class="subbrand">CONTRACT OBLIGATION & RENEWAL ASSISTANT</div></div>
+  <span class="privacy">Human review required</span>
+</header>
+<main class="wrap">
+  <section class="hero">
+    <div class="eyebrow">CONTRACT WORKSPACE</div>
+    <h1>Keep obligations visible.<br><span>Never miss a renewal.</span></h1>
+    <p>Capture contract text, surface possible obligations, and review every suggestion before relying on it.</p>
+    <div class="stats">
+      <div class="stat"><strong id="contractCount">0</strong><span>Contracts</span></div>
+      <div class="stat"><strong id="reviewCount">0</strong><span>Need review</span></div>
+      <div class="stat"><strong id="approvedCount">0</strong><span>Approved</span></div>
+    </div>
+  </section>
+  <div id="notice" class="notice hidden" role="status"></div>
+  <section class="layout">
+    <article class="panel form-panel">
+      <div class="panel-head"><div><div class="eyebrow">STEP 1</div><h2>Add a contract</h2></div><span class="round-icon">＋</span></div>
+      <form id="contractForm">
+        <label for="title">Contract title <b>*</b></label>
+        <input id="title" required maxlength="160" placeholder="e.g. Software Services Agreement">
+        <label for="counterparty">Counterparty</label>
+        <input id="counterparty" maxlength="160" placeholder="e.g. Northwind Ltd.">
+        <label for="contractText">Contract text <b>*</b></label>
+        <textarea id="contractText" required minlength="30" rows="12" placeholder="Paste contract clauses here. Avoid confidential or sensitive personal information."></textarea>
+        <div class="hint">Prototype limit: 2 MB per request. Suggestions are rule-based, not legal advice.</div>
+        <button id="analyzeBtn" type="submit">Analyze contract <span>→</span></button>
+      </form>
+    </article>
+    <article class="panel">
+      <div class="panel-head"><div><div class="eyebrow">STEP 2</div><h2>Obligation review</h2></div><span class="pill">Human-in-the-loop</span></div>
+      <p class="muted">Review each extracted item. Correct the description and due date, then approve or reject it.</p>
+      <div class="filters">
+        <label class="sr-only" for="filter">Filter obligations</label>
+        <select id="filter"><option value="all">All statuses</option><option>Needs review</option><option>Approved</option><option>Rejected</option></select>
+        <button class="secondary" id="refreshBtn" type="button">Refresh</button>
+      </div>
+      <div id="obligationList" class="obligation-list"><div class="empty">No obligations yet. Add a contract to get started.</div></div>
+    </article>
+  </section>
+  <section class="footnote"><strong>Responsible-use note</strong><p>This tool highlights text that may relate to obligations. It can miss clauses, misclassify text, and fail to interpret legal meaning. A qualified human should verify the original contract before taking action. No emails or automated legal actions are sent.</p></section>
+</main>
+<footer>ClausePilot · Assessment prototype · Data stored in the app's SQLite database</footer>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
